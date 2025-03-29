@@ -5,7 +5,7 @@ import ProductCard from "@/components/ProductCard";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { generateProductSummary } from "@/lib/api/nebius";
 
-// Sample product data (to be replaced with actual API data)
+// Sample product data
 const sampleProducts = [
   {
     id: 1,
@@ -19,6 +19,45 @@ const sampleProducts = [
     topics: ["AI", "Product", "Marketing"],
     summary:
       "ProductHunt AI is an innovative solution that provides AI-powered product recommendations and insights. It features an intuitive user interface and powerful functionality.",
+    features: [
+      {
+        title: "AI-Powered Analysis",
+        description:
+          "Uses advanced machine learning to analyze product market fit and potential.",
+      },
+      {
+        title: "Sentiment Analysis",
+        description:
+          "Automatically analyzes user feedback to detect positive and negative sentiment patterns.",
+      },
+      {
+        title: "Competitive Intelligence",
+        description:
+          "Provides detailed comparisons with similar products in the marketplace.",
+      },
+    ],
+    useCases: [
+      "Startups can validate product ideas before full development.",
+      "Product managers can identify which features resonate most with users.",
+      "Marketers can fine-tune messaging based on actual user sentiment.",
+    ],
+    testimonials: [
+      {
+        quote:
+          "This tool helped us pivot our product strategy and we saw a 120% increase in user engagement.",
+        author: "Alex K., Startup Founder",
+      },
+      {
+        quote:
+          "The AI insights were spot on. Saved us months of market research.",
+        author: "Patricia L., Product Director",
+      },
+      {
+        quote:
+          "We identified a critical feature gap that our competitors had missed.",
+        author: "James W., CEO",
+      },
+    ],
   },
   {
     id: 2,
@@ -32,6 +71,45 @@ const sampleProducts = [
     topics: ["Development", "Productivity", "Tools"],
     summary:
       "DevFlow is a cutting-edge tool designed to streamline workflow for developers. It provides real-time analytics and actionable insights.",
+    features: [
+      {
+        title: "Integrated CI/CD Pipeline",
+        description:
+          "Automated building, testing, and deployment with real-time feedback.",
+      },
+      {
+        title: "Collaborative Code Reviews",
+        description:
+          "Inline comments, approval workflows, and automatic code quality checks.",
+      },
+      {
+        title: "Project Management",
+        description:
+          "Task tracking, sprint planning, and team coordination all in one place.",
+      },
+    ],
+    useCases: [
+      "Development teams can reduce context switching between different tools.",
+      "Tech leads can easily monitor project progress and code quality.",
+      "Remote teams can collaborate more effectively with centralized workflows.",
+    ],
+    testimonials: [
+      {
+        quote:
+          "DevFlow cut our deployment time by 70% and drastically reduced integration issues.",
+        author: "Emily R., Lead Developer",
+      },
+      {
+        quote:
+          "The unified workflow solved our biggest pain point - switching between too many tools.",
+        author: "David C., CTO",
+      },
+      {
+        quote:
+          "Our junior developers onboard much faster now with the integrated environment.",
+        author: "Sophia T., Engineering Manager",
+      },
+    ],
   },
   {
     id: 3,
@@ -45,6 +123,45 @@ const sampleProducts = [
     topics: ["Design", "Collaboration", "UI/UX"],
     summary:
       "DesignSphere is a revolutionary product that aims to provide a collaborative design workspace. It helps users save time and increase productivity.",
+    features: [
+      {
+        title: "Real-time Collaboration",
+        description:
+          "Multiple designers can work on the same file simultaneously with live updates.",
+      },
+      {
+        title: "Design System Management",
+        description:
+          "Create, maintain and implement design systems with automatic component updates.",
+      },
+      {
+        title: "Prototyping & User Testing",
+        description:
+          "Build interactive prototypes and collect user feedback directly in the platform.",
+      },
+    ],
+    useCases: [
+      "Design teams can collaborate across time zones without version control issues.",
+      "UX researchers can gather and implement feedback in the same environment.",
+      "Companies can maintain consistent brand identity across all digital products.",
+    ],
+    testimonials: [
+      {
+        quote:
+          "DesignSphere revolutionized how our global team works together. No more 'final_final_v2' files!",
+        author: "Michelle K., Design Director",
+      },
+      {
+        quote:
+          "The design system features saved us countless hours of redundant work.",
+        author: "Ryan B., UI Designer",
+      },
+      {
+        quote:
+          "Getting stakeholder feedback is now seamless, and we iterate much faster.",
+        author: "Thomas L., Product Owner",
+      },
+    ],
   },
 ];
 

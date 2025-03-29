@@ -24,6 +24,8 @@
 .DS_Store
 *.pem
 PLAN.md
+script.js
+script2.js
 
 # debug
 npm-debug.log*

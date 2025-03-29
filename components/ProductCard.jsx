@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import AIDiscussion from "./AIDiscussion";
+import ProductDetails from "./ProductDetails";
 
 export default function ProductCard({
   product,
@@ -9,6 +10,7 @@ export default function ProductCard({
   onPrevious,
 }) {
   const [showAIDiscussion, setShowAIDiscussion] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
 
   if (!product) return null;
 
@@ -74,7 +76,7 @@ export default function ProductCard({
           ))}
         </div>
 
-        <div className="flex space-x-2 mb-16">
+        <div className="flex space-x-2 mb-16 relative z-20">
           <Link
             href={product.url || "#"}
             target="_blank"
@@ -84,29 +86,29 @@ export default function ProductCard({
             Visit Product
           </Link>
 
-          <Link
-            href={`/product/${product.id}`}
+          <button
+            onClick={() => setShowDetails(true)}
             className="py-2 px-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-800 dark:text-white text-center font-medium rounded-lg transition-colors"
           >
             Details
-          </Link>
+          </button>
         </div>
       </div>
 
-      {/* Navigation controls - simplify these to make sure they work */}
+      {/* Navigation controls - adjust z-index and height to not cover buttons */}
       <div
-        className="absolute left-0 top-0 bottom-0 w-1/3 z-10"
+        className="absolute left-0 top-0 h-2/3 w-1/3 z-10"
         onClick={onPrevious}
       />
       <div
-        className="absolute right-0 top-0 bottom-0 w-1/3 z-10"
+        className="absolute right-0 top-0 h-2/3 w-1/3 z-10"
         onClick={onNext}
       />
 
       {/* AI Discussion component */}
-      {!showAIDiscussion && (
+      {!showAIDiscussion && !showDetails && (
         <div
-          className="absolute bottom-4 left-4 right-4 bg-white dark:bg-gray-800 p-3 rounded-full shadow-md flex items-center cursor-pointer"
+          className="absolute bottom-4 left-4 right-4 bg-white dark:bg-gray-800 p-3 rounded-full shadow-md flex items-center cursor-pointer z-20"
           onClick={() => setShowAIDiscussion(true)}
         >
           <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mr-3">
@@ -116,6 +118,7 @@ export default function ProductCard({
         </div>
       )}
 
+      {/* AI Discussion Modal */}
       {showAIDiscussion && (
         <AIDiscussion
           product={product}
@@ -123,6 +126,13 @@ export default function ProductCard({
           isVisible={showAIDiscussion}
         />
       )}
+
+      {/* Product Details Modal */}
+      <ProductDetails
+        product={product}
+        onClose={() => setShowDetails(false)}
+        isVisible={showDetails}
+      />
     </div>
   );
 }
