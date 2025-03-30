@@ -1,5 +1,30 @@
 import { useState } from "react";
 
+// Function to clean HTML from comment text
+const cleanCommentHTML = (htmlString) => {
+  if (!htmlString) return "";
+
+  // Replace HTML tags with appropriate content
+  return (
+    htmlString
+      // Remove paragraph tags
+      .replace(/<\/?p>/g, "")
+      // Replace links with just their text content
+      .replace(/<a[^>]*>([^<]+)<\/a>/g, "$1")
+      // Remove any other HTML tags
+      .replace(/<[^>]*>/g, "")
+      // Decode HTML entities
+      .replace(/&amp;/g, "&")
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/&nbsp;/g, " ")
+      // Trim whitespace
+      .trim()
+  );
+};
+
 export default function ProductDetails({ product, onClose, isVisible }) {
   const [activeTab, setActiveTab] = useState("features");
 
@@ -9,6 +34,9 @@ export default function ProductDetails({ product, onClose, isVisible }) {
   const features = product.features || [];
   const useCases = product.useCases || [];
   const testimonials = product.testimonials || [];
+
+  // Get all comments from the product
+  const comments = product.comments || [];
 
   return (
     <div className="absolute inset-0 bg-white dark:bg-gray-900 z-20 flex flex-col">
@@ -108,13 +136,30 @@ export default function ProductDetails({ product, onClose, isVisible }) {
           </div>
         ) : (
           <div className="space-y-4">
-            <h4 className="text-lg font-medium">Customer Testimonials</h4>
-            {testimonials.length > 0 ? (
+            <h4 className="text-lg font-medium">Comments from Product Hunt</h4>
+            {comments.length > 0 ? (
               <div className="space-y-4">
-                {testimonials.map((testimonial, index) => (
+                {comments.map((comment, index) => (
                   <div
                     key={index}
                     className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg"
+                  >
+                    <p className="text-sm mb-2">
+                      {cleanCommentHTML(comment.body)}
+                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      User ID: {comment.id}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            ) : testimonials.length > 0 ? (
+              <div className="space-y-4">
+                <h4 className="text-lg font-medium mt-6">Testimonials</h4>
+                {testimonials.map((testimonial, index) => (
+                  <div
+                    key={index}
+                    className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg"
                   >
                     <p className="text-sm italic mb-2">"{testimonial.quote}"</p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">
@@ -125,7 +170,7 @@ export default function ProductDetails({ product, onClose, isVisible }) {
               </div>
             ) : (
               <div className="text-center py-8 text-gray-500">
-                <p>No testimonials available for this product yet.</p>
+                <p>No comments available for this product yet.</p>
               </div>
             )}
           </div>

@@ -5,7 +5,7 @@ export default function AIDiscussion({ product, onClose, isVisible }) {
   const [messages, setMessages] = useState([
     {
       role: "assistant",
-      content: `Hi there! I'm TechToday's AI assistant. Ask me anything about ${product?.name || "this product"}!`,
+      content: `Hi there! I'm TechToday's AI assistant. Ask me anything about ${product?.name || "this product"} and I'll try to answer it to the best of my ability!`,
     },
   ]);
   const [inputValue, setInputValue] = useState("");

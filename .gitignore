@@ -24,8 +24,11 @@
 .DS_Store
 *.pem
 PLAN.md
-script.js
-script2.js
+script_intro.js
+script2_phapi.js
+script_example_output.txt
+techtoday-ceb88-firebase-adminsdk-fbsvc-06f59ae797.json
+updateProducts.js
 
 # debug
 npm-debug.log*
