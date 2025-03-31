@@ -79,7 +79,7 @@ export default function HomePage() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-between h-full py-4 px-4">
+    <div className="flex flex-col items-center justify-between h-full py-4 px-4 bg-gradient-to-b from-gray-900 to-black">
       {/* Story navigation indicators */}
       <div className="w-full mb-2">
         <div className="flex justify-center space-x-3">
@@ -88,9 +88,7 @@ export default function HomePage() {
               key={index}
               onClick={() => setCurrentIndex(index)}
               className={`h-2 rounded-full cursor-pointer transition-all duration-300 ${
-                index === currentIndex
-                  ? "w-8 bg-blue-500"
-                  : "w-2 bg-gray-300 dark:bg-gray-700"
+                index === currentIndex ? "w-8 bg-blue-500" : "w-2 bg-gray-700"
               }`}
             />
           ))}
@@ -111,7 +109,7 @@ export default function HomePage() {
       <div className="flex justify-center space-x-8 mt-2">
         <button
           onClick={handlePrevious}
-          className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 focus:outline-none"
+          className="p-2 rounded-full secondary-button focus:outline-none"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -129,7 +127,7 @@ export default function HomePage() {
         </button>
         <button
           onClick={handleNext}
-          className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 focus:outline-none"
+          className="p-2 rounded-full secondary-button focus:outline-none"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

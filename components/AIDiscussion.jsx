@@ -104,13 +104,13 @@ export default function AIDiscussion({ product, onClose, isVisible }) {
   if (!isVisible) return null;
 
   return (
-    <div className="absolute inset-0 bg-white dark:bg-gray-900 z-20 flex flex-col">
+    <div className="absolute inset-0 bg-black bg-opacity-90 backdrop-blur-md z-20 flex flex-col">
       {/* Header */}
-      <div className="p-4 border-b flex justify-between items-center">
-        <h3 className="font-semibold">Chat about {product?.name}</h3>
+      <div className="p-4 border-b border-gray-800 flex justify-between items-center">
+        <h3 className="font-semibold text-white">Chat about {product?.name}</h3>
         <button
           onClick={onClose}
-          className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
+          className="p-2 rounded-full hover:bg-gray-800 text-gray-400 hover:text-white"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -139,8 +139,8 @@ export default function AIDiscussion({ product, onClose, isVisible }) {
             <div
               className={`max-w-[80%] p-3 rounded-lg ${
                 message.role === "user"
-                  ? "bg-blue-500 text-white rounded-br-none"
-                  : "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-bl-none markdown-bubble"
+                  ? "glass-button text-white rounded-br-none"
+                  : "glass-card text-gray-200 rounded-bl-none markdown-bubble"
               }`}
             >
               {renderMessageContent(message)}
@@ -150,15 +150,15 @@ export default function AIDiscussion({ product, onClose, isVisible }) {
 
         {isLoading && (
           <div className="flex justify-start">
-            <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded-lg rounded-bl-none">
+            <div className="glass-card p-3 rounded-lg rounded-bl-none">
               <div className="flex space-x-1">
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
                 <div
-                  className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                  className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"
                   style={{ animationDelay: "0.2s" }}
                 ></div>
                 <div
-                  className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                  className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"
                   style={{ animationDelay: "0.4s" }}
                 ></div>
               </div>
@@ -168,20 +168,20 @@ export default function AIDiscussion({ product, onClose, isVisible }) {
       </div>
 
       {/* Input area */}
-      <form onSubmit={handleSubmit} className="p-4 border-t">
-        <div className="flex items-center bg-gray-100 dark:bg-gray-800 rounded-full px-4 py-2">
+      <form onSubmit={handleSubmit} className="p-4 border-t border-gray-800">
+        <div className="flex items-center glass-card rounded-full px-4 py-2">
           <input
             type="text"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             placeholder="Ask about this product..."
-            className="flex-grow bg-transparent focus:outline-none"
+            className="flex-grow bg-transparent focus:outline-none text-gray-300"
             disabled={isLoading}
           />
           <button
             type="submit"
             disabled={isLoading || !inputValue.trim()}
-            className="ml-2 p-2 text-blue-500 disabled:text-gray-400"
+            className="ml-2 p-2 text-blue-400 disabled:text-gray-600"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

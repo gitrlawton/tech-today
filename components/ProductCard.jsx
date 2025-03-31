@@ -36,21 +36,22 @@ export default function ProductCard({
   const colorIndex = productId % productColors.length;
   const backgroundColor = productColors[colorIndex];
 
-  // Create media array combining product thumbnail and media
-  const mediaItems = [];
-  if (product.thumbnail) {
-    mediaItems.push({ type: "image", url: product.thumbnail });
-  }
+  // Create media array from product media, ensuring thumbnail isn't duplicated
+  let mediaItems = [];
+
+  // First add non-thumbnail media items
   if (product.media && Array.isArray(product.media)) {
-    // Add unique media items that aren't duplicates of the thumbnail
-    product.media.forEach((item) => {
-      if (item.url && item.url !== product.thumbnail) {
-        mediaItems.push(item);
-      }
-    });
+    mediaItems = product.media
+      .filter((item) => item.url && item.url !== product.thumbnail)
+      .map((item) => ({ ...item }));
   }
 
-  // If no media items, add a placeholder
+  // If we have no media items, use the thumbnail as the only item
+  if (mediaItems.length === 0 && product.thumbnail) {
+    mediaItems.push({ type: "image", url: product.thumbnail });
+  }
+
+  // If still no media items, add a placeholder
   if (mediaItems.length === 0) {
     mediaItems.push({ type: "placeholder" });
   }
@@ -80,10 +81,10 @@ export default function ProductCard({
   if (!isActive) return null;
 
   return (
-    <div className="product-card flex flex-col w-full h-full bg-white dark:bg-gray-900 rounded-xl shadow overflow-hidden relative border border-gray-200 dark:border-gray-800">
+    <div className="product-card flex flex-col w-full h-full glass-card rounded-xl overflow-hidden relative">
       {/* Progress bar at top */}
-      <div className="w-full h-1 bg-gray-200">
-        <div className="h-full bg-blue-500" style={{ width: "100%" }} />
+      <div className="w-full h-1 bg-gray-800">
+        <div className="h-full bg-gray-800" style={{ width: "100%" }} />
       </div>
 
       {/* Media carousel */}
@@ -135,9 +136,7 @@ export default function ProductCard({
                 key={index}
                 onClick={() => setCurrentMediaIndex(index)}
                 className={`h-2 w-2 rounded-full transition-all ${
-                  index === currentMediaIndex
-                    ? "bg-white"
-                    : "bg-gray-400 bg-opacity-50"
+                  index === currentMediaIndex ? "bg-blue-400" : "bg-gray-600"
                 }`}
                 aria-label={`View media item ${index + 1}`}
               />
@@ -153,7 +152,7 @@ export default function ProductCard({
                 e.stopPropagation();
                 prevMedia();
               }}
-              className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-30 rounded-full p-1 text-white z-20"
+              className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 rounded-full p-1 text-white z-20"
               aria-label="Previous media"
             >
               <svg
@@ -175,7 +174,7 @@ export default function ProductCard({
                 e.stopPropagation();
                 nextMedia();
               }}
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-30 rounded-full p-1 text-white z-20"
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 rounded-full p-1 text-white z-20"
               aria-label="Next media"
             >
               <svg
@@ -201,7 +200,7 @@ export default function ProductCard({
         <div className="flex items-center mb-3">
           {/* Product thumbnail as avatar */}
           {product.thumbnail ? (
-            <div className="w-10 h-10 rounded-full overflow-hidden mr-3 flex-shrink-0">
+            <div className="w-10 h-10 rounded-full overflow-hidden mr-3 flex-shrink-0 border border-gray-700">
               <img
                 src={product.thumbnail}
                 alt={product.name}
@@ -228,11 +227,11 @@ export default function ProductCard({
           )}
           <div>
             <Link href={`/product/${product.id}`} className="hover:underline">
-              <h3 className="font-bold text-lg">
+              <h3 className="font-bold text-lg text-white">
                 {product.name || "Untitled Product"}
               </h3>
             </Link>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-400">
               {product.tagline || "No tagline available"}
             </p>
           </div>
@@ -243,7 +242,7 @@ export default function ProductCard({
           {(product.topics || []).slice(0, 3).map((topic, i) => (
             <span
               key={i}
-              className="px-2 py-1 my-1 bg-gray-100 dark:bg-gray-800 text-xs rounded-full flex-shrink-0"
+              className="px-2 py-1 my-1 bg-gray-800 text-gray-300 text-xs rounded-full flex-shrink-0 border border-gray-700"
             >
               {topic}
             </span>
@@ -252,7 +251,7 @@ export default function ProductCard({
 
         {/* Description with truncation */}
         <div className="mb-4 flex-grow">
-          <p className="text-sm overflow-ellipsis overflow-hidden">
+          <p className="text-sm text-gray-300 overflow-ellipsis overflow-hidden">
             {getTruncatedDescription()}
           </p>
         </div>
@@ -263,14 +262,14 @@ export default function ProductCard({
             href={product.url || product.website || "#"}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white text-center font-medium rounded-lg transition-colors"
+            className="flex-1 py-2 px-4 glass-button text-blue-300 text-center font-medium rounded-lg transition-colors"
           >
             Visit Product
           </Link>
 
           <button
             onClick={() => setShowDetails(true)}
-            className="py-2 px-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-800 dark:text-white text-center font-medium rounded-lg transition-colors"
+            className="py-2 px-4 secondary-button text-gray-300 text-center font-medium rounded-lg transition-colors"
           >
             Details
           </button>
@@ -290,13 +289,13 @@ export default function ProductCard({
       {/* AI Discussion component */}
       {!showAIDiscussion && !showDetails && (
         <div
-          className="absolute bottom-4 left-4 right-4 bg-white dark:bg-gray-800 p-3 rounded-full shadow-md flex items-center cursor-pointer z-30"
+          className="absolute bottom-4 left-4 right-4 glass-card p-3 rounded-full shadow-lg flex items-center cursor-pointer z-30 border border-gray-700"
           onClick={() => setShowAIDiscussion(true)}
         >
-          <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-            <span className="text-blue-500 text-lg">AI</span>
+          <div className="w-8 h-8 rounded-full bg-blue-900 flex items-center justify-center mr-3">
+            <span className="text-blue-300 text-lg">AI</span>
           </div>
-          <p className="text-sm text-gray-500">Ask about this product...</p>
+          <p className="text-sm text-gray-400">Ask about this product...</p>
         </div>
       )}
 

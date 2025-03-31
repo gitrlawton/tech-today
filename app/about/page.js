@@ -59,13 +59,13 @@ export default function AboutPage() {
 
         <h2 className="text-xl font-semibold mt-8 mb-4">Contact Us</h2>
         <p>
-          Have questions or feedback? We'd love to hear from you! Reach out to
-          us at{" "}
+          Have questions or feedback? I'd love to hear from you! Reach out to me
+          on{" "}
           <a
-            href="mailto:hello@techtoday.example.com"
+            href="https://www.linkedin.com/in/rlawton714/"
             className="text-blue-500 hover:underline"
           >
-            hello@techtoday.example.com
+            LinkedIn
           </a>
           .
         </p>
