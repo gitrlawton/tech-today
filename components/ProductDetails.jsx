@@ -4,11 +4,13 @@ import { useState } from "react";
 const cleanCommentHTML = (htmlString) => {
   if (!htmlString) return "";
 
-  // Replace HTML tags with appropriate content
   return (
     htmlString
-      // Remove paragraph tags
-      .replace(/<\/?p>/g, "")
+      // Replace <br> and </p> with newlines
+      .replace(/<br\s*\/?>/gi, "\n")
+      .replace(/<\/p>/gi, "\n")
+      // Replace <p> with newline if it's not the first tag
+      .replace(/<p[^>]*>(?!\s*$)/gi, "\n")
       // Replace links with just their text content
       .replace(/<a[^>]*>([^<]+)<\/a>/g, "$1")
       // Remove any other HTML tags
@@ -20,6 +22,8 @@ const cleanCommentHTML = (htmlString) => {
       .replace(/&quot;/g, '"')
       .replace(/&#39;/g, "'")
       .replace(/&nbsp;/g, " ")
+      // Replace multiple newlines with double newline
+      .replace(/\n\s*\n/g, "\n\n")
       // Trim whitespace
       .trim()
   );
@@ -144,7 +148,7 @@ export default function ProductDetails({ product, onClose, isVisible }) {
                     key={index}
                     className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg"
                   >
-                    <p className="text-sm mb-2">
+                    <p className="text-sm mb-2 whitespace-pre-wrap">
                       {cleanCommentHTML(comment.body)}
                     </p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { generateProductAnswer } from "@/lib/api/nebius";
+import ReactMarkdown from "react-markdown";
 
 export default function AIDiscussion({ product, onClose, isVisible }) {
   const [messages, setMessages] = useState([
@@ -23,12 +23,33 @@ export default function AIDiscussion({ product, onClose, isVisible }) {
     setIsLoading(true);
 
     try {
-      // Get response from Nebius API
-      const response = await generateProductAnswer(product, inputValue);
+      // Filter out only conversation messages (no system messages)
+      const messageHistory = messages.map((msg) => ({
+        role: msg.role,
+        content: msg.content,
+      }));
+
+      // Call API route directly instead of using lib function
+      const response = await fetch("/api/discussion", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          product,
+          messages: messageHistory.concat(userMessage),
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("API request failed");
+      }
+
+      const data = await response.json();
 
       const aiResponse = {
         role: "assistant",
-        content: response,
+        content: data.content,
       };
 
       setMessages((prev) => [...prev, aiResponse]);
@@ -44,6 +65,39 @@ export default function AIDiscussion({ product, onClose, isVisible }) {
       ]);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  // Helper function to render message content
+  const renderMessageContent = (message) => {
+    if (message.role === "user") {
+      // User messages don't need markdown rendering
+      return <div>{message.content}</div>;
+    } else {
+      // Render AI messages with markdown
+      return (
+        <div className="markdown-wrapper">
+          <div className="markdown text-sm">
+            <ReactMarkdown
+              components={{
+                // Customize code rendering
+                code: ({ node, inline, className, children, ...props }) => {
+                  return (
+                    <code
+                      className={`${inline ? "inline-code" : "block-code"} ${className || ""}`}
+                      {...props}
+                    >
+                      {children}
+                    </code>
+                  );
+                },
+              }}
+            >
+              {message.content}
+            </ReactMarkdown>
+          </div>
+        </div>
+      );
     }
   };
 
@@ -86,10 +140,10 @@ export default function AIDiscussion({ product, onClose, isVisible }) {
               className={`max-w-[80%] p-3 rounded-lg ${
                 message.role === "user"
                   ? "bg-blue-500 text-white rounded-br-none"
-                  : "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-bl-none"
+                  : "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-bl-none markdown-bubble"
               }`}
             >
-              {message.content}
+              {renderMessageContent(message)}
             </div>
           </div>
         ))}

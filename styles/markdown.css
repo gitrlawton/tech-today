@@ -1,0 +1,162 @@
+/* Markdown styles */
+.markdown {
+  color: inherit;
+  line-height: 1.6;
+}
+
+/* Fix spacing in message bubbles */
+.markdown-bubble {
+  overflow-wrap: break-word;
+}
+
+.markdown-wrapper {
+  width: 100%;
+}
+
+/* Ensure markdown content inside bubbles has proper spacing */
+.markdown-bubble .markdown > *:first-child {
+  margin-top: 0;
+}
+
+.markdown-bubble .markdown > *:last-child {
+  margin-bottom: 0;
+}
+
+/* Adjust list spacing in bubbles */
+.markdown-bubble .markdown ul,
+.markdown-bubble .markdown ol {
+  margin-left: 1rem;
+  padding-left: 0.5rem;
+}
+
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4,
+.markdown h5,
+.markdown h6 {
+  font-weight: 600;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.markdown h1 {
+  font-size: 1.5em;
+}
+
+.markdown h2 {
+  font-size: 1.3em;
+}
+
+.markdown h3 {
+  font-size: 1.2em;
+}
+
+.markdown p {
+  margin-bottom: 1em;
+}
+
+.markdown ul,
+.markdown ol {
+  margin-left: 1.5em;
+  margin-bottom: 1em;
+}
+
+.markdown ul {
+  list-style-type: disc;
+}
+
+.markdown ol {
+  list-style-type: decimal;
+}
+
+.markdown li {
+  margin-bottom: 0.5em;
+}
+
+.markdown a {
+  color: #3b82f6;
+  text-decoration: underline;
+}
+
+.markdown code {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 0.25em;
+  padding: 0.2em 0.4em;
+  font-size: 0.9em;
+  font-family: monospace;
+}
+
+.markdown pre {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 0.5em;
+  padding: 1em;
+  overflow-x: auto;
+  margin-bottom: 1em;
+}
+
+.markdown pre code {
+  background-color: transparent;
+  padding: 0;
+}
+
+.markdown blockquote {
+  border-left: 4px solid #e5e7eb;
+  padding-left: 1em;
+  margin-left: 0;
+  color: #6b7280;
+  font-style: italic;
+}
+
+.markdown hr {
+  border: 0;
+  border-top: 1px solid #e5e7eb;
+  margin: 1em 0;
+}
+
+/* Dark mode adjustments */
+.dark .markdown code {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark .markdown pre {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark .markdown blockquote {
+  border-left-color: #4b5563;
+  color: #9ca3af;
+}
+
+.dark .markdown hr {
+  border-top-color: #4b5563;
+}
+
+.dark .markdown a {
+  color: #60a5fa;
+}
+
+/* Code styling */
+.inline-code {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 0.25em;
+  padding: 0.2em 0.4em;
+  font-size: 0.9em;
+  font-family: monospace;
+}
+
+.block-code {
+  display: block;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 0.5em;
+  padding: 1em;
+  font-family: monospace;
+  white-space: pre-wrap;
+  overflow-x: auto;
+  font-size: 0.9em;
+}
+
+.dark .inline-code,
+.dark .block-code {
+  background-color: rgba(255, 255, 255, 0.1);
+}
