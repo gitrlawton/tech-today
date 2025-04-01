@@ -29,6 +29,7 @@ script2_phapi.js
 script_example_output.txt
 techtoday-ceb88-firebase-adminsdk-fbsvc-06f59ae797.json
 updateProducts.js
+updateFeaturesAndUsecases.js
 
 # debug
 npm-debug.log*

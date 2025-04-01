@@ -83,9 +83,9 @@ export default function ProductCard({
   return (
     <div className="product-card flex flex-col w-full h-full glass-card rounded-xl overflow-hidden relative">
       {/* Progress bar at top */}
-      <div className="w-full h-1 bg-gray-800">
+      {/* <div className="w-full h-1 bg-gray-800">
         <div className="h-full bg-gray-800" style={{ width: "100%" }} />
-      </div>
+      </div> */}
 
       {/* Media carousel */}
       <div className="w-full h-52 relative">
@@ -259,7 +259,7 @@ export default function ProductCard({
         {/* Action buttons fixed at bottom of content area */}
         <div className="flex space-x-2 mt-auto relative z-20">
           <Link
-            href={product.url || product.website || "#"}
+            href={product.website || "#"}
             target="_blank"
             rel="noopener noreferrer"
             className="flex-1 py-2 px-4 glass-button text-blue-300 text-center font-medium rounded-lg transition-colors"

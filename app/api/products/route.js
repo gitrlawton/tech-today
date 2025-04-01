@@ -60,27 +60,8 @@ export async function GET() {
           "",
         topics: topicNames,
         // Add these fields that are expected by the ProductCard component
-        features: [
-          {
-            title: "Key Feature",
-            description:
-              data.tagline || "This product provides great value to users.",
-          },
-          {
-            title: "Product Hunt Rating",
-            description: `Ranked #${data.rank || "N/A"} on Product Hunt for the day.`,
-          },
-          {
-            title: "Description",
-            description:
-              data.description || "A trending product from Product Hunt.",
-          },
-        ],
-        useCases: [
-          "Use this product to improve your workflow.",
-          "Integrate with your existing tools.",
-          "Boost your productivity.",
-        ],
+        features: data.features,
+        useCases: data.use_cases,
         testimonials: testimonials,
         // Keep the original data for any custom needs
         comments: data.comments || [],
