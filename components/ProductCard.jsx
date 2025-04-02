@@ -88,7 +88,7 @@ export default function ProductCard({
       </div> */}
 
       {/* Media carousel */}
-      <div className="w-full h-52 relative">
+      <div className="w-full h-[212px] relative">
         {mediaItems[currentMediaIndex].type === "placeholder" ? (
           <div
             className={`w-full h-full ${backgroundColor} flex items-center justify-center`}
@@ -196,7 +196,7 @@ export default function ProductCard({
       </div>
 
       {/* Content */}
-      <div className="flex-grow p-4 overflow-y-auto pb-24 border-0 flex flex-col">
+      <div className="flex-grow p-4 overflow-y-auto pb-4 border-0 flex flex-col">
         <div className="flex items-center mb-3">
           {/* Product thumbnail as avatar */}
           {product.thumbnail ? (
@@ -257,63 +257,65 @@ export default function ProductCard({
         </div>
 
         {/* Action buttons fixed at bottom of content area */}
-        <div className="flex space-x-2 mt-auto relative z-20">
-          <Link
-            href={product.website || "#"}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-1 py-2 px-4 glass-button text-blue-300 text-center font-medium rounded-lg transition-colors"
-          >
-            Visit Product
-          </Link>
+        <div className="flex flex-col space-y-4 mt-auto relative">
+          <div className="flex space-x-2">
+            <Link
+              href={product.website || "#"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 py-2 px-4 glass-button text-blue-300 text-center font-medium rounded-lg transition-colors"
+            >
+              Visit Product
+            </Link>
 
-          <button
-            onClick={() => setShowDetails(true)}
-            className="py-2 px-4 secondary-button text-gray-300 text-center font-medium rounded-lg transition-colors"
-          >
-            Details
-          </button>
-        </div>
-      </div>
-
-      {/* Navigation controls - adjust z-index and height to only cover the top media portion */}
-      <div
-        className="absolute left-0 top-0 h-52 w-1/3 z-10"
-        onClick={onPrevious}
-      />
-      <div
-        className="absolute right-0 top-0 h-52 w-1/3 z-10"
-        onClick={onNext}
-      />
-
-      {/* AI Discussion component */}
-      {!showAIDiscussion && !showDetails && (
-        <div
-          className="absolute bottom-4 left-4 right-4 glass-card p-3 rounded-full shadow-lg flex items-center cursor-pointer z-30 border border-gray-700"
-          onClick={() => setShowAIDiscussion(true)}
-        >
-          <div className="w-8 h-8 rounded-full bg-blue-900 flex items-center justify-center mr-3">
-            <span className="text-blue-300 text-lg">AI</span>
+            <button
+              onClick={() => setShowDetails(true)}
+              className="py-2 px-4 secondary-button text-gray-300 text-center font-medium rounded-lg transition-colors"
+            >
+              Details
+            </button>
           </div>
-          <p className="text-sm text-gray-400">Ask about this product...</p>
+
+          {/* AI Discussion component */}
+          {!showAIDiscussion && !showDetails && (
+            <div
+              className="glass-card p-3 rounded-full shadow-lg flex items-center cursor-pointer border border-gray-700"
+              onClick={() => setShowAIDiscussion(true)}
+            >
+              <div className="w-8 h-8 rounded-full bg-blue-900 flex items-center justify-center mr-3">
+                <span className="text-blue-300 text-lg">AI</span>
+              </div>
+              <p className="text-sm text-gray-400">Ask about this product...</p>
+            </div>
+          )}
         </div>
-      )}
 
-      {/* AI Discussion Modal */}
-      {showAIDiscussion && (
-        <AIDiscussion
-          product={product}
-          onClose={() => setShowAIDiscussion(false)}
-          isVisible={showAIDiscussion}
+        {/* Navigation controls - adjust z-index and height to only cover the top media portion */}
+        <div
+          className="absolute left-0 top-0 h-52 w-1/3 z-10"
+          onClick={onPrevious}
         />
-      )}
+        <div
+          className="absolute right-0 top-0 h-52 w-1/3 z-10"
+          onClick={onNext}
+        />
 
-      {/* Product Details Modal */}
-      <ProductDetails
-        product={product}
-        onClose={() => setShowDetails(false)}
-        isVisible={showDetails}
-      />
+        {/* AI Discussion Modal */}
+        {showAIDiscussion && (
+          <AIDiscussion
+            product={product}
+            onClose={() => setShowAIDiscussion(false)}
+            isVisible={showAIDiscussion}
+          />
+        )}
+
+        {/* Product Details Modal */}
+        <ProductDetails
+          product={product}
+          onClose={() => setShowDetails(false)}
+          isVisible={showDetails}
+        />
+      </div>
     </div>
   );
 }

@@ -5,7 +5,7 @@ export default function Footer({ className }) {
     <footer
       className={`py-2 px-4 bg-black bg-opacity-90 border-t border-gray-800 ${className || ""}`}
     >
-      <div className="max-w-screen-lg mx-auto flex flex-col md:flex-row justify-between items-center text-xs">
+      <div className="max-w-screen-lg mx-auto flex flex-col flex-row justify-between items-center text-xs">
         <div className="mb-1 md:mb-0">
           <p className="text-gray-500">
             © {new Date().getFullYear()} TechToday

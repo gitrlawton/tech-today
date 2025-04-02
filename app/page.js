@@ -96,7 +96,7 @@ export default function HomePage() {
       </div>
 
       {/* Product Card */}
-      <div className="w-full max-w-sm h-[calc(100%-100px)] relative overflow-hidden">
+      <div className="w-full max-w-sm min-w-[360px] h-[600px] relative overflow-hidden">
         <ProductCard
           product={products[currentIndex]}
           isActive={true}
